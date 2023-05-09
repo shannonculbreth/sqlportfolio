@@ -1,0 +1,80 @@
+/*In this project, you’re going to make your own table with some small 
+set of “famous people”, then make more tables about things they do and join 
+those to create nice human readable lists. Contains at least two tables with at 
+least 15 rows total. One of the tables contains a column that relates to the primary key of another table.
+Has at least one query that does a JOIN. 
+
+For example, here are types of famous people and the questions your data could answer:
+
+Movie stars: What movies are they in? Are they married to each other?
+Singers: What songs did they write? Where are they from?
+Authors: What books did they write?
+Fictional characters: How are they related to other characters? What books do they show up in?*/
+
+
+CREATE TABLE characters (id INTEGER PRIMARY KEY,
+    name TEXT,
+    age  INTEGER,
+    district INTEGER);
+
+INSERT INTO characters (name, age, district)
+VALUES ("Peetah Mellark", 16, 12);
+INSERT INTO characters (name, age, district)
+VALUES ("Katniss Everdeen", 16, 12);
+INSERT INTO characters (name, age, district)
+VALUES ("Primrose Everdeen", 12, 12);
+INSERT INTO characters (name, age, district)
+VALUES ("Johanna Mason", 22, 7);
+INSERT INTO characters (name, age, district)
+VALUES ("Finnick Odaire", 24, 4);
+INSERT INTO characters (name, age, district)
+VALUES ("Cedar", 30, 11);
+INSERT INTO characters (name, age, district)
+VALUES ("Bonnie", 35, 8);
+INSERT INTO characters (name, age, district)
+VALUES ("Cato", 17, 2);
+
+CREATE table relationship (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    person1_id INTEGER,
+    person2_id INTEGER,
+    relationship_type TEXT);
+    
+INSERT INTO relationship (person1_id, person2_id, relationship_type)
+    VALUES (1, 2, "dating");
+INSERT INTO relationship (person1_id, person2_id, relationship_type)
+    VALUES (2, 3, "sisters");
+
+CREATE table appearance (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    books TEXT);
+    
+INSERT INTO appearance (books)
+    VALUES ("1,2,3");  
+INSERT INTO appearance (books)
+    VALUES ("1,2,3");
+INSERT INTO appearance (books)
+    VALUES ("1,2,3");
+INSERT INTO appearance (books)
+    VALUES ("2,3");
+INSERT INTO appearance (books)
+    VALUES ("2,3");
+INSERT INTO appearance (books)
+    VALUES ("2");
+INSERT INTO appearance (books)
+    VALUES ("2");
+INSERT INTO appearance (books)
+    VALUES ("1");
+    
+    
+SELECT name, age, district, books FROM characters 
+JOIN appearance
+ON characters.id = appearance.id;
+
+
+SELECT a.name, b.name, relationship_type
+FROM relationship
+JOIN characters a
+ON a.id = relationship.person1_id
+JOIN characters b
+ON b.id = relationship.person2_id;
